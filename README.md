@@ -1,5 +1,23 @@
-# data-model-viewer
+<h1 align="center">Data Model Viewer</h1>
+<div align="center">
 A viewer for data dictionary based on [Windmill](https://github.com/uc-cdis/data-portal).
+</div>
+
+<div align="center">
+
+[![License](https://img.shields.io/npm/l/package.json.svg?style=flat)](./LICENSE)
+
+</div>
+
+
+[Demo](http://webapps.3steps.cn/data-model/)
+---
+
+![Graph Mode](./docs/images/graph-mode.png)
+
+![Graph Mode](./docs/images/graph-mode-1.png)
+
+![Table Mode](./docs/images/table-mode.png)
 
 ## Available Scripts
 
