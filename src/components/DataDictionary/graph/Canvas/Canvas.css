@@ -28,5 +28,6 @@
 
 .canvas__zoom-icon--zoom-in {
   position: relative;
-  top: 9px;
+  top: 2px;
+  height: 5px;
 }

@@ -92,6 +92,7 @@
   width: 80px;
   min-width: unset; /* override .g3-button's 152px min-width */
   height: 30px;
+  line-height: 30px; /* Make the text vertical align */
   margin: 5px 0 0 15px;
   padding: unset; /* override .g3-button's paddings */
   float: right;
