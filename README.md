@@ -28,3 +28,6 @@ yarn global add serve
 yarn build
 serve -s build
 ```
+
+## TODO
+- [ ] Add search box to support view the external json file of data dictionary.
