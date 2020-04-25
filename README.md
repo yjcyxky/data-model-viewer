@@ -1,11 +1,11 @@
 <h1 align="center">Data Model Viewer</h1>
 <div align="center">
-A viewer for data dictionary based on [Windmill](https://github.com/uc-cdis/data-portal).
+A viewer for data dictionary based on <a href="https://github.com/uc-cdis/data-portal">Windmill</a>.
 </div>
+<br>
+<div align="center" >
 
-<div align="center">
-
-[![License](https://img.shields.io/npm/l/package.json.svg?style=flat)](./LICENSE)
+[![License](https://img.shields.io/github/license/clinico-omics/data-model-viewer)](./LICENSE)
 
 </div>
 
