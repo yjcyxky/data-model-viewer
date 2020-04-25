@@ -1,4 +1,4 @@
-import ddgraph from './DataDictionary/reducers';
+import ddgraph from '../components/DataDictionary/reducers';
 import submission from './submission';
 import { combineReducers } from 'redux';
 

@@ -2,7 +2,7 @@ import FileSaver from 'file-saver';
 import PropTypes from 'prop-types';
 import JSZip from 'jszip';
 
-import { dataDictionaryTemplatePath } from '../localconf';
+import { dataDictionaryTemplatePath } from '../../store/localconf';
 
 const concatTwoWords = (w1, w2) => {
   if (w1.length === 0) return w2;
@@ -97,7 +97,8 @@ export const getType = (property) => {
 
 export const downloadTemplate = (format, nodeId) => {
   if (format === 'tsv' || format === 'json') {
-    const templatePath = `${dataDictionaryTemplatePath}${nodeId}?format=${format}`;
+    // const templatePath = `${dataDictionaryTemplatePath}${nodeId}?format=${format}`;
+    const templatePath = `${dataDictionaryTemplatePath}?format=${format}`;
     window.open(templatePath);
   }
 };
@@ -114,7 +115,8 @@ export const downloadMultiTemplate = (
   }
   const zip = new JSZip();
   Promise.all(Object.keys(nodesToDownload).map((nodeID) => {
-    const fileUrl = `${dataDictionaryTemplatePath}${nodeID}?format=${format}`;
+    // const fileUrl = `${dataDictionaryTemplatePath}${nodeID}?format=${format}`;
+    const fileUrl = `${dataDictionaryTemplatePath}?format=${format}`;
     const saveAsFileName = nodesToDownload[nodeID];
     return fetch(fileUrl).then((response) => {
       if (response.ok) {

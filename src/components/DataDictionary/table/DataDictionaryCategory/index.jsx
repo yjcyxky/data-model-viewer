@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { getCategoryColor, getCategoryIconSVG } from '../../NodeCategories/helper';
-import { capitalizeFirstLetter } from '../../../utils';
+import { capitalizeFirstLetter } from '../../../../utils';
 import DataDictionaryNode from '../DataDictionaryNode/.';
 import './DataDictionaryCategory.css';
 

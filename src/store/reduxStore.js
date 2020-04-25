@@ -2,7 +2,7 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import dict from './dictionary';
+import dict from '../schemas/default';
 import { mockStore, dev } from './localconf';
 import reducers from './reducers';
 

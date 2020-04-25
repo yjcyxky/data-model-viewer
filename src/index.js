@@ -3,9 +3,9 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
 import { render } from "react-dom";
-import DataDictionary from "./DataDictionary/.";
+import DataDictionary from "./components/DataDictionary/.";
 import { Provider } from "react-redux";
-import getReduxStore from "./reduxStore";
+import getReduxStore from "./store/reduxStore";
 import { Input, Empty } from "antd";
 
 const { Search } = Input;
@@ -13,12 +13,12 @@ const { Search } = Input;
 async function init() {
   const store = await getReduxStore();
 
-  await Promise.all(
-    [
-      // store.dispatch(fetchSchema),
-      // store.dispatch(fetchDictionary)
-    ],
-  );
+  // await Promise.all(
+  //   [
+  //     // store.dispatch(fetchSchema),
+  //     // store.dispatch(fetchDictionary)
+  //   ],
+  // );
 
   function onSearch(val) {
     console.log("search:", val);
@@ -36,8 +36,9 @@ async function init() {
     <Provider store={store}>
       <div className="tree-container">
         <Search
+          disabled
           allowClear
-          placeholder="Select a Schema Url"
+          placeholder="Search a Schema Dictionary..."
           size="large"
           onSearch={onSearch}
           style={{ width: "calc(100% - 30px)", margin: "15px" }}

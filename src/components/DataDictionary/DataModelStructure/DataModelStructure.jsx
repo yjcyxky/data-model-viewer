@@ -4,7 +4,7 @@ import Button from '@gen3/ui-component/dist/components/Button';
 import Dropdown from '@gen3/ui-component/dist/components/Dropdown';
 import { getCategoryIconSVG } from '../NodeCategories/helper';
 import { downloadMultiTemplate } from '../utils';
-import { intersection } from '../../utils';
+import { intersection } from '../../../utils';
 import './DataModelStructure.css';
 
 class DataModelStructure extends React.Component {

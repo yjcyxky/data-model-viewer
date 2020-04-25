@@ -1,7 +1,5 @@
 import * as d3 from 'd3-scale';
 
-import { submissionApiPath } from './localconf';
-
 export const humanFileSize = (size) => {
   if (typeof size !== 'number') {
     return '';
@@ -10,13 +8,6 @@ export const humanFileSize = (size) => {
   const sizeStr = (size / (1024 ** i)).toFixed(2) * 1;
   const suffix = ['B', 'KB', 'MB', 'GB', 'TB'][i];
   return `${sizeStr} ${suffix}`;
-};
-
-export const getSubmitPath = (project) => {
-  const path = project.split('-');
-  const programName = path[0];
-  const projectCode = path.slice(1).join('-');
-  return `${submissionApiPath}/${programName}/${projectCode}`;
 };
 
 export const jsonToString = (data, schema = {}) => {
