@@ -21,6 +21,7 @@ class DataDictionaryCategory extends React.Component {
           node => (<DataDictionaryNode
             node={node}
             key={node.id}
+            dictionaryName={this.props.dictionaryName}
             description={node.description}
             expanded={this.props.highlightingNodeID && this.props.highlightingNodeID === node.id}
             onExpandNode={this.props.onExpandNode}
@@ -41,11 +42,13 @@ DataDictionaryCategory.propTypes = {
   ).isRequired,
   highlightingNodeID: PropTypes.string,
   onExpandNode: PropTypes.func,
+  dictionaryName: PropTypes.string,
 };
 
 DataDictionaryCategory.defaultProps = {
   highlightingNodeID: null,
   onExpandNode: () => {},
+  dictionaryName: undefined,
 };
 
 export default DataDictionaryCategory;

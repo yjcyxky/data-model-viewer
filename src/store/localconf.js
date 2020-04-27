@@ -1,4 +1,4 @@
-const dataDictionaryTemplatePath = "data/default.json";
+const dataDictionaryTemplatePath = "data/";
 const dictionaryApiPath = "data/";
 
 // Commonjs style export, so can load from nodejs into data/gqlSetup

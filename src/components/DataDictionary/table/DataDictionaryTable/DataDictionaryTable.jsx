@@ -71,6 +71,7 @@ const DataDictionaryTable = ({ dictionary, highlightingNodeID, onExpandNode, dic
       {Object.keys(c2nl).map(category =>
         (<DataDictionaryCategory
           key={category}
+          dictionaryName={dictionaryName}
           nodes={c2nl[category]}
           category={category}
           highlightingNodeID={highlightingNodeID}

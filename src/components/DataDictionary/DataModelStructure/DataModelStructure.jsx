@@ -37,6 +37,7 @@ class DataModelStructure extends React.Component {
     const allRoutes = this.props.allRoutes.map(nodeIDsInRoute =>
       nodeIDsInRoute.filter(nid => !this.props.excludedNodesForTemplates.includes(nid)));
     this.props.downloadMultiTemplate(
+      this.props.dictionaryName,
       format,
       nodesToDownload,
       allRoutes,
@@ -139,6 +140,7 @@ DataModelStructure.propTypes = {
   allRoutes: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.string)),
   clickingNodeName: PropTypes.string,
   dictionaryVersion: PropTypes.string,
+  dictionaryName: PropTypes.string,
 };
 
 DataModelStructure.defaultProps = {
@@ -154,6 +156,7 @@ DataModelStructure.defaultProps = {
   allRoutes: [],
   clickingNodeName: '',
   dictionaryVersion: 'Unknown',
+  dictionaryName: 'Unknown',
 };
 
 export default DataModelStructure;

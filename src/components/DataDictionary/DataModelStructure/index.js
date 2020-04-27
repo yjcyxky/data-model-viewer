@@ -11,6 +11,7 @@ const ReduxDataModelStructure = (() => {
     allRoutes: state.ddgraph.dataModelStructureAllRoutesBetween,
     clickingNodeName: state.ddgraph.highlightingNode ? state.ddgraph.highlightingNode.label : '',
     dictionaryVersion: state.versionInfo.dictionaryVersion,
+    dictionaryName: state.submission.dictionaryName,
   });
 
   const mapDispatchToProps = dispatch => ({

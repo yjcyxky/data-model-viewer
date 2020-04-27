@@ -95,14 +95,14 @@ class OverlayPropertyTable extends React.Component {
                 </span>
                 <Button
                   className='overlay-property-table__download-button'
-                  onClick={() => { downloadTemplate('tsv', this.props.node.id); }}
+                  onClick={() => { downloadTemplate(this.props.dictionaryName, 'tsv', this.props.node.id); }}
                   label='TSV'
                   buttonType='secondary'
                   rightIcon='download'
                 />
                 <Button
                   className='overlay-property-table__download-button'
-                  onClick={() => { downloadTemplate('json', this.props.node.id); }}
+                  onClick={() => { downloadTemplate(this.props.dictionaryName, 'json', this.props.node.id); }}
                   label='JSON'
                   buttonType='secondary'
                   rightIcon='download'
@@ -144,6 +144,7 @@ OverlayPropertyTable.propTypes = {
   onOpenMatchedProperties: PropTypes.func,
   onCloseMatchedProperties: PropTypes.func,
   isSearchResultNodeOpened: PropTypes.bool,
+  dictionaryName: PropTypes.string,
 };
 
 OverlayPropertyTable.defaultProps = {
@@ -155,6 +156,7 @@ OverlayPropertyTable.defaultProps = {
   onOpenMatchedProperties: () => {},
   onCloseMatchedProperties: () => {},
   isSearchResultNodeOpened: false,
+  dictionaryName: undefined,
 };
 
 export default OverlayPropertyTable;

@@ -21,7 +21,7 @@ class DataDictionaryNode extends React.Component {
 
   handleDownloadTemplate = (e, format) => {
     e.stopPropagation(); // no toggling
-    downloadTemplate(format, this.props.node.id);
+    downloadTemplate(this.props.dictionaryName, format, this.props.node.id);
   }
 
   render() {
@@ -104,12 +104,14 @@ DataDictionaryNode.propTypes = {
   description: PropTypes.string,
   expanded: PropTypes.bool,
   onExpandNode: PropTypes.func,
+  dictionaryName: PropTypes.string,
 };
 
 DataDictionaryNode.defaultProps = {
   description: '',
   expanded: false,
   onExpandNode: () => {},
+  dictionaryName: undefined,
 };
 
 export default DataDictionaryNode;

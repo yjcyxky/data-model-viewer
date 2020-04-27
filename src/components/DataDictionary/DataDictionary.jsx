@@ -84,6 +84,7 @@ class DataDictionary extends React.Component {
               }`}
             >
               <DataDictionaryGraph
+                key={this.props.dictionaryName}
                 onClearSearchResult={this.handleClearSearchResult}
               />
             </div>
@@ -105,11 +106,13 @@ class DataDictionary extends React.Component {
 DataDictionary.propTypes = {
   onSetGraphView: PropTypes.func,
   isGraphView: PropTypes.bool,
+  dictionaryName: PropTypes.string,
 };
 
 DataDictionary.defaultProps = {
   onSetGraphView: () => {},
   isGraphView: false,
+  dictionaryName: undefined,
 };
 
 export default DataDictionary;

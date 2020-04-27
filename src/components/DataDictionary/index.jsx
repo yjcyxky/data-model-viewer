@@ -5,6 +5,7 @@ import DataDictionary from './DataDictionary';
 const ReduxDataDictionary = (() => {
   const mapStateToProps = state => ({
     isGraphView: state.ddgraph.isGraphView,
+    dictionaryName: state.submission.dictionaryName,
   });
 
   const mapDispatchToProps = dispatch => ({

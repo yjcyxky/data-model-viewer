@@ -1,6 +1,7 @@
 {
   "name": "data-model-viewer",
   "version": "0.1.0",
+  "homepage": "http://webapps.3steps.cn/data-model",
   "private": true,
   "dependencies": {
     "@gen3/ui-component": "^0.5.1",

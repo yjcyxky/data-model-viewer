@@ -1,6 +1,7 @@
 import FileSaver from 'file-saver';
 import PropTypes from 'prop-types';
 import JSZip from 'jszip';
+import { notification } from 'antd';
 
 import { dataDictionaryTemplatePath } from '../../store/localconf';
 
@@ -95,15 +96,43 @@ export const getType = (property) => {
   return type;
 };
 
-export const downloadTemplate = (format, nodeId) => {
-  if (format === 'tsv' || format === 'json') {
-    // const templatePath = `${dataDictionaryTemplatePath}${nodeId}?format=${format}`;
-    const templatePath = `${dataDictionaryTemplatePath}?format=${format}`;
-    window.open(templatePath);
+export const downloadTemplate = (dictionaryName, format, nodeId) => {
+  const dictionary = dictionaryName.toLowerCase()
+  if (format === 'tsv') {
+    notification.error({    
+      message: 'Not Found',
+      description: `The ${dictionary}-${nodeId}.${format} is not prepared for users, please contact admins.`
+    })    
+  }
+
+  if (format === 'json') {
+    const templatePath = `${dataDictionaryTemplatePath}${dictionary}.${format}`;
+    // window.open(templatePath);
+    fetch(templatePath, {
+      method: "GET",
+      useCache: false
+    })
+    .then(response => response.json())
+    .then(responseBody => {
+      const node = JSON.stringify(responseBody[nodeId])
+      var data = new Blob([node], {type: 'text/json'});
+      var csvURL = window.URL.createObjectURL(data);
+      const tempLink = document.createElement('a');
+      tempLink.href = csvURL;
+      tempLink.setAttribute("download", `${dictionary}-${nodeId}.${format}`);
+      tempLink.click();
+    })
+    .catch(error => {
+      notification.error({    
+        message: 'Download Error',
+        description: `The ${dictionary}-${nodeId}.${format} is not prepared for users, please contact admins.`
+      })
+    })
   }
 };
 
 export const downloadMultiTemplate = (
+  dictionaryName,
   format,
   nodesToDownload,
   allRoutes,
@@ -113,34 +142,42 @@ export const downloadMultiTemplate = (
   if (format !== 'tsv' && format !== 'json') {
     return;
   }
-  const zip = new JSZip();
-  Promise.all(Object.keys(nodesToDownload).map((nodeID) => {
-    // const fileUrl = `${dataDictionaryTemplatePath}${nodeID}?format=${format}`;
-    const fileUrl = `${dataDictionaryTemplatePath}?format=${format}`;
-    const saveAsFileName = nodesToDownload[nodeID];
-    return fetch(fileUrl).then((response) => {
-      if (response.ok) {
-        return response.text();
-      }
-      throw new Error(`cannot download template for node "${nodeID}"`);
-    }).then((responseText) => {
-      zip.file(saveAsFileName, responseText);
-    }).catch(() => {
-      throw new Error(`cannot download template for node "${nodeID}"`);
+
+  const dictionary = dictionaryName.toLowerCase()
+  if (format === 'tsv') {
+    notification.error({    
+      message: 'Not Found',
+      description: `The templates are not prepared for users, please contact admins.`
+    })    
+  } else {
+    const zip = new JSZip();
+    Promise.all(Object.keys(nodesToDownload).map((nodeID) => {
+      const fileUrl = `${dataDictionaryTemplatePath}${dictionary}.${format}`;
+
+      const saveAsFileName = nodesToDownload[nodeID];
+      return fetch(fileUrl)
+        .then((response) => response.json())
+        .then((responseBody) => {
+          const responseText = JSON.stringify(responseBody[nodeID])
+          zip.file(saveAsFileName, responseText);
+        })
+        .catch(() => {
+          throw new Error(`cannot download template for node "${nodeID}"`);
+        });
+    })).then(() => {
+      const time = new Date();
+      const startingNodeName = 'Project';
+      let readmeContent = `The following ${format.toUpperCase()} templates were downloaded from appname on ${time.toLocaleDateString()} ${time.toLocaleTimeString()}. The following are all possible paths from "${startingNodeName}" node to "${clickingNodeName}" using data dictionary version ${dictionaryVersion}. The downloaded ${format.toUpperCase()} files need to be submitted in the order shown in the chosen path(s) below:\n`;
+      readmeContent = readmeContent.concat(
+        allRoutes.map((nodeIDsInRoute, routeIndex) => `${routeIndex + 1}. ${nodeIDsInRoute.join(',')}`).join('\n'),
+      );
+      zip.file('README.txt', readmeContent);
+      zip.generateAsync({ type: 'blob' })
+        .then((content) => {
+          FileSaver.saveAs(content, `templates-${format}.zip`);
+        });
     });
-  })).then(() => {
-    const time = new Date();
-    const startingNodeName = 'Project';
-    let readmeContent = `The following ${format.toUpperCase()} templates were downloaded from appname on ${time.toLocaleDateString()} ${time.toLocaleTimeString()}. The following are all possible paths from "${startingNodeName}" node to "${clickingNodeName}" using data dictionary version ${dictionaryVersion}. The downloaded ${format.toUpperCase()} files need to be submitted in the order shown in the chosen path(s) below:\n`;
-    readmeContent = readmeContent.concat(
-      allRoutes.map((nodeIDsInRoute, routeIndex) => `${routeIndex + 1}. ${nodeIDsInRoute.join(',')}`).join('\n'),
-    );
-    zip.file('README.txt', readmeContent);
-    zip.generateAsync({ type: 'blob' })
-      .then((content) => {
-        FileSaver.saveAs(content, `templates-${format}.zip`);
-      });
-  });
+  }
 };
 
 export const graphStyleConfig = {
