@@ -3,47 +3,81 @@ import "./index.css";
 import * as serviceWorker from "./serviceWorker";
 
 import { render } from "react-dom";
+import { connect } from "react-redux";
 import DataDictionary from "./components/DataDictionary/.";
 import { Provider } from "react-redux";
 import getReduxStore from "./store/reduxStore";
-import { Input, Empty } from "antd";
+import { Select, Empty } from "antd";
+import { fetchDictionaryList, fetchDictionary } from "./store/actions";
 
-const { Search } = Input;
+const { Option } = Select;
+
+const isNotEmpty = function(dict) {
+  if (Object.keys(dict).length !== 0) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
+const viewerMapState = state => ({
+  isValid:
+    state.submission.dictionary && isNotEmpty(state.submission.dictionary)
+});
+
+class Viewer extends React.Component {
+  render() {
+    if (this.props.isValid) {
+      return <DataDictionary></DataDictionary>;
+    }
+    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+  }
+}
+
+const ReduxViewer = connect(viewerMapState)(Viewer);
 
 async function init() {
   const store = await getReduxStore();
 
-  // await Promise.all(
-  //   [
-  //     // store.dispatch(fetchSchema),
-  //     // store.dispatch(fetchDictionary)
-  //   ],
-  // );
+  await Promise.all([store.dispatch(fetchDictionaryList)]);
 
-  function onSearch(val) {
-    console.log("search:", val);
+  function onSelect(val, option) {
+    console.log("search:", val, option);
+    store.dispatch(fetchDictionary(val))
   }
 
-  function Viewer(props) {
-    const isValid = props.isValid;
-    if (isValid) {
-      return <DataDictionary></DataDictionary>;
+  function onChange(val) {
+    if (!val) {
+      console.log("onChange: ", val);
+      store.dispatch(fetchDictionary(val));
     }
-    return <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />;
+  }
+
+  function getData(state) {
+    return state.submission.dictList;
   }
 
   render(
     <Provider store={store}>
       <div className="tree-container">
-        <Search
-          disabled
+        <Select
           allowClear
-          placeholder="Search a Schema Dictionary..."
+          showSearch
           size="large"
-          onSearch={onSearch}
           style={{ width: "calc(100% - 30px)", margin: "15px" }}
-        />
-        <Viewer isValid={ true }/>
+          placeholder="Search a Schema Dictionary..."
+          optionFilterProp="children"
+          onSelect={onSelect}
+          onChange={onChange}
+          filterOption={(input, option) =>
+            option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+          }
+        >
+          {getData(store.getState()).map(d => (
+            <Option key={d.value}>{d.text}</Option>
+          ))}
+        </Select>
+        <ReduxViewer />
       </div>
     </Provider>,
     document.getElementById("root")

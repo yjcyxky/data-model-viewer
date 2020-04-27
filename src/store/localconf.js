@@ -1,11 +1,10 @@
-const hostname = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.hostname}/` : 'http://localhost/';
-const dataDictionaryTemplatePath = `default.json`;
-const submissionApiPath = `${hostname}api/v0/submission/`;
+const dataDictionaryTemplatePath = "data/default.json";
+const dictionaryApiPath = "data/";
 
 // Commonjs style export, so can load from nodejs into data/gqlSetup
 module.exports = {
   dataDictionaryTemplatePath: dataDictionaryTemplatePath,
-  submissionApiPath: submissionApiPath,
-  mockStore: true,
-  dev: true
+  dictionaryApiPath: dictionaryApiPath,
+  mockStore: false,
+  dev: false
 };

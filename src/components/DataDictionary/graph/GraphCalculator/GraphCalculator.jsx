@@ -16,17 +16,18 @@ class GraphCalculator extends React.Component {
   }
 
   componentDidMount() {
-    if (!this.props.layoutInitialized) {
-      calculateGraphLayout(
-        this.props.dictionary,
-        this.props.countsSearch,
-        this.props.linksSearch,
-      ).then((layoutResult) => {
-        this.props.onGraphLayoutCalculated(layoutResult);
-        const legendItems = getAllTypes(layoutResult.nodes);
-        this.props.onGraphLegendCalculated(legendItems);
-      });
-    }
+    console.log("GraphCalculator", this.props)
+    // if (!this.props.layoutInitialized) {
+    calculateGraphLayout(
+      this.props.dictionary,
+      this.props.countsSearch,
+      this.props.linksSearch,
+    ).then((layoutResult) => {
+      this.props.onGraphLayoutCalculated(layoutResult);
+      const legendItems = getAllTypes(layoutResult.nodes);
+      this.props.onGraphLegendCalculated(legendItems);
+    });
+    // }
   }
 
   componentWillUpdate(nextProps) {

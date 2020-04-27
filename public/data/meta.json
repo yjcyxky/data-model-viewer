@@ -1,0 +1,12 @@
+{
+  "dictionaries": [
+    {
+      "text": "An Example of Data Dictionary",
+      "value": "example.json"
+    },
+    {
+      "text": "GDC Data Dictionary",
+      "value": "default.json"
+    }
+  ]
+}

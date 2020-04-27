@@ -2,7 +2,6 @@
   "name": "data-model-viewer",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://webapps.3steps.cn/data-model",
   "dependencies": {
     "@gen3/ui-component": "^0.5.1",
     "antd": "^4.1.4",
@@ -28,7 +27,8 @@
     "string-similarity": "^3.0.0",
     "underscore": "^1.8.3",
     "url-join": "^4.0.0",
-    "viz.js": "2.0.0"
+    "viz.js": "2.0.0",
+    "voca": "^1.4.0"
   },
   "devDependencies": {
     "less": "^3.11.1",

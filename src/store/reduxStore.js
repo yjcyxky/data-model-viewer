@@ -2,7 +2,7 @@ import { persistStore, autoRehydrate } from 'redux-persist';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import dict from '../schemas/default';
+import dict from './default';
 import { mockStore, dev } from './localconf';
 import reducers from './reducers';
 
@@ -32,7 +32,7 @@ const getReduxStore = () => {
       if (dev === true) {
         let data = {};
         if (mockStore) {
-          data = { user: { username: 'test' }, submission: { dictionary: dict, nodeTypes: Object.keys(dict).slice(2) }, status: {} };
+          data = { submission: { dictionary: dict, nodeTypes: Object.keys(dict).slice(2) }};
         }
         store = compose(
           applyMiddleware(thunk), // routerMiddleware(browserHistory)),
@@ -48,7 +48,8 @@ const getReduxStore = () => {
           autoRehydrate(),
         )(createStore)(
           reducers,
-          { user: {}, status: {} },
+          {},
+          window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
           autoRehydrate(),
         );
       }
