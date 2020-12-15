@@ -1,5 +1,6 @@
 import { dictionaryApiPath } from "./localconf";
-import v from 'voca';
+import v from "voca";
+import { filter } from "lodash";
 
 export const fetchDictionary = filename => {
   if (filename) {
@@ -12,9 +13,9 @@ export const fetchDictionary = filename => {
         .then(responseBody => {
           const data = {
             dictionary: responseBody,
-            dictionaryName: v.titleCase(filename.split('.')[0])
-          }
-          console.log("fetchDictionary: ", data)
+            dictionaryName: v.titleCase(filename.split(".")[0])
+          };
+          console.log("fetchDictionary: ", data);
           return {
             type: "RECEIVE_DICTIONARY",
             data: data
@@ -30,8 +31,8 @@ export const fetchDictionary = filename => {
   } else {
     const data = {
       dictionary: {},
-      dictionaryName: ''
-    }
+      dictionaryName: ""
+    };
 
     return dispatch =>
       dispatch({
@@ -41,6 +42,12 @@ export const fetchDictionary = filename => {
   }
 };
 
+export const getParameter = parameterName => {
+  let urlString = window.location.href;
+  let url = new URL(urlString);
+  return url.searchParams.get(parameterName);
+};
+
 export const fetchDictionaryList = dispatch =>
   fetch(`${dictionaryApiPath}meta.json`, {
     method: "GET",
@@ -48,9 +55,22 @@ export const fetchDictionaryList = dispatch =>
   })
     .then(response => response.json())
     .then(responseBody => {
+      const dictionaries = responseBody.dictionaries;
+      const project = getParameter("project");
+      if (project) {
+        const filtered = filter(dictionaries, o => {
+          return o.key === project
+        })
+
+        if (filtered.length > 0) {
+          const filename = filtered[0].value;
+          dispatch(fetchDictionary(filename));
+        }
+      }
+
       return {
         type: "RECEIVE_DICTIONARY_LIST",
-        data: responseBody.dictionaries
+        data: dictionaries
       };
     })
     .catch(error => {

@@ -2,11 +2,13 @@
   "dictionaries": [
     {
       "text": "An Example of Data Dictionary",
-      "value": "example.json"
+      "value": "example.json",
+      "key": "example"
     },
     {
       "text": "GDC Data Dictionary",
-      "value": "default.json"
+      "value": "default.json",
+      "key": "gdc"
     }
   ]
 }
