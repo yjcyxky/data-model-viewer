@@ -37,6 +37,7 @@
     "react-scripts": "^3.4.1"
   },
   "scripts": {
+    "publish-code": "react-scripts build && ossutilmac64 cp -r -u ./build/ oss://datains-frontend/data-model/ -c ~/.ossutilconfig-tgmc",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
