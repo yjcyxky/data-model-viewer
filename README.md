@@ -10,7 +10,7 @@ A viewer for data dictionary based on <a href="https://github.com/uc-cdis/data-p
 </div>
 
 
-[Demo](http://webapps.3steps.cn/data-model/)
+[Demo](https://biominer.3steps.cn/data-model/?project=gdc)
 ---
 
 ![Graph Mode](./docs/images/graph-mode.png)

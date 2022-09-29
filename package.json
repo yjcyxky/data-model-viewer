@@ -38,6 +38,7 @@
   },
   "scripts": {
     "publish-code": "react-scripts build && ossutilmac64 cp -r -u ./build/ oss://datains-frontend/data-model/ -c ~/.ossutilconfig-tgmc",
+    "publish-code-hongkong": "react-scripts build && ossutilmac64 cp -r -u ./build/ oss://clinico-omics-frontend/data-model/ -c ~/.ossutilconfig-tgmc-hongkong",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

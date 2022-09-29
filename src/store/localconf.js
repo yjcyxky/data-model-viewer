@@ -3,8 +3,8 @@
 // const dictionaryApiPath = "data/";
 
 // Production
-const dataDictionaryTemplatePath = "http://service.3steps.cn/attachments/data-model/";
-const dictionaryApiPath = "http://service.3steps.cn/attachments/data-model/";
+const dataDictionaryTemplatePath = "https://biominer.3steps.cn/data-model/";
+const dictionaryApiPath = "https://biominer.3steps.cn/data-model/"
 
 // Commonjs style export, so can load from nodejs into data/gqlSetup
 module.exports = {
